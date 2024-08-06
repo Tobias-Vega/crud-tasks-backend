@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { ctrl } = require('../controllers/controllers');
+const controller = require('../controllers/controllers');
 
-router.get('/tasks', ctrl.obtenerTareas);
-router.get('/tasks/:id', ctrl.obtenerTareaPorId);
+router.get('/tasks', controller.actualizarTarea);
+router.get('/tasks/:id', controller.obtenerTareaPorId);
+router.post('/tasks', controller.insertarTarea);
+router.put('/tasks/:id', controller.actualizarTarea);
+router.delete('/tasks/:id', controller.eliminarTarea);
 
 module.exports = router;
