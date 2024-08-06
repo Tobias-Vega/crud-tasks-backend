@@ -5,14 +5,14 @@ const newConnection = async () => {
     host:"localhost",
     user: "root",
     database: "tasks_db"
-})
+});
 
 return connection
-}
+};
 
 
-newConnection()
+newConnection();
 
 module.exports = {
     newConnection
-}
+};
