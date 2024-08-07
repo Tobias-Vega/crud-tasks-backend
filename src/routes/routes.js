@@ -1,11 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/controllers');
 
-router.get('/tasks', controller.obtenerTareas);
-router.get('/tasks/:id', controller.obtenerTareaPorId);
-router.post('/tasks', controller.insertarTarea);
-router.put('/tasks/:id', controller.actualizarTarea);
-router.delete('/tasks/:id', controller.eliminarTarea);
+const { eliminarTarea } = require('../controllers/controllers');
+const { obtenerTareas } = require('../controllers/controllers');
+const { obtenerTareaPorId } = require('../controllers/controllers');
+const { actualizarTarea } = require('../controllers/controllers');
+const { insertarTarea } = require('../controllers/controllers');
+
+
+router.get('/tasks', obtenerTareas);
+router.get('/tasks/:id', obtenerTareaPorId);
+router.post('/tasks', insertarTarea);
+router.put('/tasks/:id', actualizarTarea);
+router.delete('/tasks/:id', eliminarTarea);
 
 module.exports = router;

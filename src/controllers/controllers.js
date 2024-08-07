@@ -1,4 +1,4 @@
-const { newConnection } = require("../database/db")
+const { newConnection } = require("../database/db");
 
 const obtenerTareas = async (req, res) => {
 
@@ -10,9 +10,7 @@ const obtenerTareas = async (req, res) => {
         res.status(400);
     }
 
-    console.log(result);
-
-    res.json(result[0]);
+    res.json(result);
 
     connection.end();
 };
@@ -35,7 +33,6 @@ const obtenerTareaPorId = async (req,res) => {
 }
 
 const insertarTarea = async (req,res) => {
-
 
     const { title, description, isCompleted } = req.body;
 
@@ -84,6 +81,18 @@ const actualizarTarea = async (req,res) => {
     
     if (result.length === 0) {
         return res.status(404).json( { msg: 'Tarea no encontrada' });
+    };
+
+    if(typeof description !== 'string' || description.trim() === '') {
+        return res.status(400).json({ msg: 'El campo description es obligatorio'  });
+    };
+
+    if(typeof isCompleted !== "boolean") {
+        return res.status(400).json({ msg: 'El campo isCompleted debe ser un valor booleano' });
+    };
+
+    if(title.length > 255) {
+        return res.status(400).json({ msg: 'El título supera el límite de caracteres posibles' });
     }
 
     await connection.query(`
@@ -105,11 +114,19 @@ const eliminarTarea = async (req,res) => {
 
     const connection = await newConnection();
 
-    const [result] = await connection.query(`
+    const [result] = await connection.query('SELECT * FROM tasks WHERE id = ?', [id]);
+    
+    if (result.length === 0) {
+        return res.status(404).json( { msg: 'Tarea no encontrada' });
+    };
+
+    await connection.query(`
         DELETE FROM tasks WHERE id = ?`, [id]
     );
 
-    res.status(200).json({ msg: 'Tarea eliminada' });
+    res.status(200).json({ msg: 'Tarea eliminada' })
+
+    connection.end();
 };
 
 module.exports = {
