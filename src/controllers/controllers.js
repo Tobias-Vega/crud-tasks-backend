@@ -1,6 +1,6 @@
-const { newConnection } = require("../database/db");
+import { newConnection } from '../database/db.js'
 
-const obtenerTareas = async (req, res) => {
+export const obtenerTareas = async (req, res) => {
 
     try {
         const connection = await newConnection();
@@ -22,7 +22,7 @@ const obtenerTareas = async (req, res) => {
     
 };
 
-const obtenerTareaPorId = async (req,res) => {
+export const obtenerTareaPorId = async (req,res) => {
 
     try {
         const id = parseInt(req.params.id);
@@ -45,7 +45,7 @@ const obtenerTareaPorId = async (req,res) => {
     };
 };
 
-const insertarTarea = async (req,res) => {
+export const insertarTarea = async (req,res) => {
 
     try {
         const { title, description, isCompleted } = req.body;
@@ -89,7 +89,7 @@ const insertarTarea = async (req,res) => {
     };
 };
 
-const actualizarTarea = async (req,res) => {
+export const actualizarTarea = async (req,res) => {
 
     try {
         const id = parseInt(req.params.id);
@@ -134,7 +134,7 @@ const actualizarTarea = async (req,res) => {
     };
 };
 
-const eliminarTarea = async (req,res) => {
+export const eliminarTarea = async (req,res) => {
     try {
         const id = parseInt(req.params.id);
 
@@ -158,12 +158,4 @@ const eliminarTarea = async (req,res) => {
         console.error('Ocurrió un error', error);
         res.status(500).json({ msg: 'Internal server error', error: error.msg})
     };
-};
-
-module.exports = {
-    obtenerTareas,
-    obtenerTareaPorId,
-    insertarTarea,
-    actualizarTarea,
-    eliminarTarea
 };

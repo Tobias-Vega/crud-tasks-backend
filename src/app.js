@@ -1,10 +1,10 @@
-const express = require("express");
+import express, { json } from "express";
 
 const app = express();
 
-const Routes = require('./routes/routes');
+import { router } from './routes/routes.js';
 
-app.use(express.json());
-app.use(Routes);
+app.use(json());
+app.use('/tasks/', router);
 
 app.listen(3000, console.log('Servidor corriendo en el puerto 3000'));

@@ -1,17 +1,15 @@
-const express = require('express');
-const router = express.Router();
+import { Router } from 'express';
+export const router = Router();
 
-const { eliminarTarea } = require('../controllers/controllers');
-const { obtenerTareas } = require('../controllers/controllers');
-const { obtenerTareaPorId } = require('../controllers/controllers');
-const { actualizarTarea } = require('../controllers/controllers');
-const { insertarTarea } = require('../controllers/controllers');
+import { obtenerTareas, 
+    obtenerTareaPorId, 
+    insertarTarea, 
+    actualizarTarea, 
+    eliminarTarea 
+}   from '../controllers/controllers.js';
 
-
-router.get('/tasks', obtenerTareas);
-router.get('/tasks/:id', obtenerTareaPorId);
-router.post('/tasks', insertarTarea);
-router.put('/tasks/:id', actualizarTarea);
-router.delete('/tasks/:id', eliminarTarea);
-
-module.exports = router;
+router.get('/', obtenerTareas);
+router.get('/:id', obtenerTareaPorId);
+router.post('/', insertarTarea);
+router.put('/:id', actualizarTarea);
+router.delete('/:id', eliminarTarea);
